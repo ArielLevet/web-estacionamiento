@@ -40,7 +40,8 @@ p, h1, h2 { margin-top: 0; }
 .button > span { font-size: 21px; line-height: 1; }
 .button:hover { transform: translateY(-2px); }
 .button-small { min-height: 44px; padding: 12px 17px; border: 1px solid var(--primary); font-size: 12px; gap: 22px; }
-.button-small:hover { background: var(--surface); }
+.button-outline { border: 1px solid var(--primary); }
+.button-small:hover, .button-outline:hover { background: var(--surface); }
 .button-accent { background: var(--accent); color: var(--ink); }
 .button-accent:hover { background: #a2caf2; }
 .button-dark { background: var(--primary); color: #fff; }
@@ -186,22 +187,20 @@ body.lightbox-open { overflow: hidden; }
 }
 @media (max-width: 760px) {
   .wrapper { width: calc(100% - 40px); }
-  .site-header { flex-wrap: wrap; min-height: 90px; gap: 12px 15px; padding-block: 18px; }
+  .site-header { min-height: 90px; padding-block: 18px; }
   .brand { gap: 9px; }
   .brand-name { flex-direction: column; align-items: flex-start; gap: 3px; }
   .brand-category { font-weight: 600; letter-spacing: .2px; }
   .site-header .brand { width: 100%; }
   .brand-symbol { width: 36px; height: 40px; border-radius: 10px 10px 2px 10px; font-size: 30px; }
   .site-header .brand-name { font-size: 23px; }
-  .header-cta { order: 3; margin-left: auto; padding-inline: 12px; gap: 15px; font-size: 11px; }
-  .main-nav { order: 2; margin-left: 0; gap: 20px; font-size: 12px; }
-  .main-nav a { padding-block: 6px; }
+  .main-nav, .header-cta { display: none; }
   .hero { grid-template-columns: 1fr; gap: 26px; padding-top: 35px; padding-bottom: 28px; }
   .airport-service { gap: 9px; padding: 10px 12px; font-size: 14px; margin-bottom: 18px; }
   h1 { font-size: clamp(49px, 9.7vw, 72px); letter-spacing: -2.7px; margin-bottom: 19px; }
   .hero-description { font-size: 13px; margin-bottom: 21px; }
-  .hero-actions { gap: 26px; }
-  .hero .button { font-size: 12px; padding-inline: 19px; gap: 22px; }
+  .hero-actions { gap: 14px; }
+  .hero .button { font-size: 12px; padding-inline: 16px; gap: 16px; }
   .hero-info { display: grid; grid-template-columns: 1.15fr 1fr; gap: 15px; padding: 18px 0 0; border-left: 0; border-top: 1px solid var(--line); }
   .hero-stamp { display: none; }
   .hero-info-row { padding: 0; gap: 9px; }
@@ -275,11 +274,9 @@ body.lightbox-open { overflow: hidden; }
   .wrapper { width: calc(100% - 32px); }
   .site-header { gap: 12px; }
   .site-header .brand-name { font-size: 21px; }
-  .header-cta { gap: 10px; padding-inline: 10px; }
   h1 { font-size: 46px; letter-spacing: -2.6px; }
-  .hero-actions { gap: 19px; }
-  .hero .button { gap: 17px; padding-inline: 16px; }
-  .hero .text-link { font-size: 12px; gap: 10px; }
+  .hero-actions { gap: 12px; }
+  .hero .button { font-size: 11px; gap: 12px; padding-inline: 12px; }
   .hero-info-row { gap: 7px; }
   .hero-info-row + .hero-info-row { padding-left: 10px; }
   .hero-info-row a, .hero-info-row strong { font-size: 14px; }
