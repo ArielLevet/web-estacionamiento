@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="580" height="590" viewBox="0 0 580 590" fill="none">
+  <defs>
+    <linearGradient id="post" x1="286" y1="305" x2="302" y2="305" gradientUnits="userSpaceOnUse"><stop stop-color="#777f6b"/><stop offset=".5" stop-color="#a4ac97"/><stop offset="1" stop-color="#747e67"/></linearGradient>
+    <linearGradient id="sign" x1="176" y1="90" x2="403" y2="310" gradientUnits="userSpaceOnUse"><stop stop-color="#edc77e"/><stop offset="1" stop-color="#dbab50"/></linearGradient>
+    <linearGradient id="shadow" x1="285" y1="425" x2="420" y2="515" gradientUnits="userSpaceOnUse"><stop stop-color="#6f795b" stop-opacity=".2"/><stop offset="1" stop-color="#6f795b" stop-opacity="0"/></linearGradient>
+  </defs>
+  <!-- Ilustración de una señal de estacionamiento, no representa el edificio. -->
+  <path d="m-35 470 266-111 387 170M-30 536l284-120 344 153M54 590l225-97 231 97" stroke="#bec5b2" stroke-width="2"/>
+  <path d="m94 416 263 174M215 364l366 229M-29 499l146 91" stroke="#cbd0c1" stroke-width="2"/>
+  <path d="m291 448 150 85 55-28-194-72" fill="url(#shadow)"/>
+  <path d="M287 280h15v161c0 5-15 5-15 0V280Z" fill="url(#post)"/>
+  <path d="M166 107c0-12 10-22 22-22h204c12 0 22 10 22 22v203c0 12-10 22-22 22H188c-12 0-22-10-22-22V107Z" fill="#b39e68"/>
+  <rect x="158" y="80" width="248" height="247" rx="21" fill="url(#sign)"/>
+  <rect x="168" y="90" width="228" height="227" rx="13" stroke="#252923" stroke-opacity=".38"/>
+  <path d="M242 267V134h55c32 0 51 17 51 45 0 29-19 46-52 46h-21v42h-33Zm33-70h19c14 0 21-6 21-18s-7-18-21-18h-19v36Z" fill="#292e25"/>
+  <circle cx="182" cy="104" r="3" fill="#8a753e"/><circle cx="383" cy="104" r="3" fill="#8a753e"/><circle cx="182" cy="302" r="3" fill="#8a753e"/><circle cx="383" cy="302" r="3" fill="#8a753e"/>
+  <path d="M204 288h157" stroke="#252923" stroke-opacity=".25"/>
+  <path d="m97 498 57-25-9-5 25-10 3 23-9-5-57 25" fill="#f6f4ee"/>
+  <path d="M443 100v39m-19-19h39" stroke="#b7bfaa" stroke-width="1.5"/>
+  <circle cx="114" cy="273" r="3" fill="#a7b095"/>
+  <circle cx="455" cy="358" r="3" fill="#a7b095"/>
+</svg>
