@@ -16,7 +16,7 @@
 
   const phone = String(config.whatsappNumber || "").trim();
   if (/^[1-9]\d{7,14}$/.test(phone)) {
-    const message = config.whatsappMessage || "Hola, quisiera consultar por el estacionamiento.";
+    const message = config.whatsappMessage || "Hola, quisiera consultar por Estacionamiento Newbery.";
     const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     document.querySelectorAll("[data-whatsapp]").forEach((link) => {
       link.href = whatsappUrl;
@@ -103,6 +103,18 @@
     closeButton.focus();
   }
 
+  function restorePage() {
+    if (dialog.open) return;
+    document.body.classList.remove("lightbox-open");
+    largeImage.removeAttribute("src");
+    if (opener && !opener.hidden) opener.focus();
+  }
+
+  function closePhoto() {
+    dialog.close();
+    restorePage();
+  }
+
   photos.forEach((photo, index) => {
     const button = document.createElement("button");
     button.type = "button";
@@ -123,7 +135,7 @@
       button.hidden = true;
       syncGallery();
       if (dialog.open) {
-        if (!availableIndices().length) dialog.close();
+        if (!availableIndices().length) closePhoto();
         else if (activeIndex === index) changePhoto(1);
         else renderPhoto(activeIndex);
       }
@@ -151,7 +163,7 @@
   });
 
   syncGallery();
-  closeButton.addEventListener("click", () => dialog.close());
+  closeButton.addEventListener("click", closePhoto);
   previousButton.addEventListener("click", () => changePhoto(-1));
   nextButton.addEventListener("click", () => changePhoto(1));
   dialog.addEventListener("keydown", (event) => {
@@ -161,11 +173,11 @@
     }
   });
   dialog.addEventListener("click", (event) => {
-    if (event.target === dialog || event.target.classList.contains("lightbox-stage")) dialog.close();
+    if (event.target === dialog || event.target.classList.contains("lightbox-stage")) closePhoto();
   });
-  dialog.addEventListener("close", () => {
-    document.body.classList.remove("lightbox-open");
-    largeImage.removeAttribute("src");
-    if (opener && !opener.hidden) opener.focus();
+  dialog.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    closePhoto();
   });
+  dialog.addEventListener("close", restorePage);
 })();

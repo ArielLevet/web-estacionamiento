@@ -7,7 +7,7 @@ window.SITE_CONFIG = {
   // Para un celular argentino suele tener el formato 549 + área + número, sin 15.
   // Al completarlo, los dos enlaces de WhatsApp aparecen automáticamente.
   whatsappNumber: "",
-  whatsappMessage: "Hola, quisiera consultar por el estacionamiento de Newbery 9050.",
+  whatsappMessage: "Hola, quisiera consultar por Estacionamiento Newbery.",
 
   // Agregar fotos reales en assets/photos/ y sus datos acá.
   // src: miniatura optimizada. full: foto grande opcional; si falta, usa src.
