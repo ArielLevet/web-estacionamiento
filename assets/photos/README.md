@@ -1,6 +1,6 @@
 # Fotos reales del estacionamiento
 
-Colocá acá las fotos del lugar. La ilustración de la portada es gráfica; no es una fotografía del estacionamiento.
+Colocá acá las fotos del lugar. Los gráficos provisionales de la galería no representan el estacionamiento.
 
 - Preferir WebP o JPEG optimizado, de 1200 a 1600 píxeles de ancho.
 - Intentar que cada miniatura pese menos de 250 KB. La versión ampliada puede tener más resolución.

@@ -1,6 +1,6 @@
 # Estacionamiento Newbery
 
-Sitio estático para **Estacionamiento Newbery**, Newbery 9050, Rosario, Santa Fe, Argentina.
+Sitio estático para **Estacionamiento Newbery**, con traslado al aeropuerto. Newbery 9050, Rosario, Santa Fe, Argentina.
 
 HTML, CSS y JavaScript, sin frameworks, paquetes, compilación ni servidor de aplicación. Listo para GitHub Pages desde la raíz del repositorio. Los recursos usan rutas relativas para funcionar tanto bajo `/nombre-del-repo/` como con un dominio propio.
 
@@ -36,6 +36,8 @@ photos: [
 
 Los archivos del ejemplo deben existir. `full` y `caption` son opcionales. La galería carga las miniaturas de forma diferida y la imagen grande al abrirla. El visor tiene navegación por flechas, cierre con Escape y retorno del foco al botón original.
 
+La primera foto es la destacada y se carga con prioridad. Con tres o más fotos, la galería muestra una imagen principal grande y dos secundarias al costado; las siguientes continúan en la grilla. Con una o dos fotos, el diseño se adapta para aprovechar todo el ancho. En celular las fotos se reorganizan y se amplían al tocarlas. Las imágenes que no cargan se omiten del recorrido.
+
 ## Publicar en GitHub Pages
 
 1. Crear un repositorio en GitHub y subir los archivos de esta carpeta a la rama `main`.
@@ -63,4 +65,4 @@ El dominio se configura en GitHub y en DNS; no requiere cambiar los enlaces inte
 
 ## Diseño y accesibilidad
 
-Diseño adaptable a celular, tablet y escritorio. Tipografías del sistema, ilustración SVG local y ausencia de mapas incrustados o scripts de terceros para mantener la carga liviana. Google Maps se abre únicamente al elegir cómo llegar. El sitio no instala cookies ni envía formularios. Los controles tienen foco visible y se respeta la preferencia de movimiento reducido.
+Diseño adaptable a celular, tablet y escritorio, con fondo claro, texto oscuro, azul profundo y acentos celestes. La marca usa la E de estacionamiento y la portada destaca el traslado al aeropuerto junto al lema «Dejá el auto. Seguí tu viaje». La galería ocupa el ancho principal, inmediatamente después de una portada breve. Tipografías del sistema y ausencia de mapas incrustados o scripts de terceros para mantener la carga liviana. Google Maps se abre únicamente al elegir cómo llegar. El sitio no instala cookies ni envía formularios. Los controles tienen foco visible y se respeta la preferencia de movimiento reducido.

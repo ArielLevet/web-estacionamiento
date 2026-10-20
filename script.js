@@ -9,7 +9,7 @@
     document.querySelectorAll("[data-hours]").forEach((element) => {
       element.textContent = config.hours.trim();
     });
-    const description = `Estacionamiento Newbery. Newbery 9050, Rosario. Horario de atención: ${config.hours.trim()}. Consultá cómo llegar y conocé el lugar.`;
+    const description = `Estacionamiento Newbery con traslado al aeropuerto. Dejá el auto. Seguí tu viaje. Newbery 9050, Rosario. Horario de atención: ${config.hours.trim()}.`;
     document.querySelector('meta[name="description"]').content = description;
     document.querySelector('meta[property="og:description"]').content = description;
   }
@@ -47,6 +47,8 @@
 
   const gallery = document.getElementById("gallery");
   const empty = document.getElementById("gallery-empty");
+  const galleryHint = document.getElementById("gallery-hint");
+  const galleryCount = document.getElementById("gallery-count");
   const dialog = document.getElementById("lightbox");
   if (!photos.length || !gallery || !dialog) return;
 
@@ -57,18 +59,40 @@
   const previousButton = document.getElementById("lightbox-prev");
   const nextButton = document.getElementById("lightbox-next");
   const galleryButtons = [];
+  const failedPhotos = new Set();
   let activeIndex = 0;
   let opener = null;
+
+  const availableIndices = () => photos.map((_, index) => index).filter((index) => !failedPhotos.has(index));
+
+  function syncGallery() {
+    const visibleButtons = galleryButtons.filter((button) => !button.hidden);
+    const count = visibleButtons.length;
+    galleryButtons.forEach((button) => button.classList.toggle("is-featured", button === visibleButtons[0]));
+    gallery.dataset.layout = count === 1 ? "single" : count === 2 ? "pair" : "mosaic";
+    gallery.hidden = !count;
+    empty.hidden = Boolean(count);
+    if (galleryHint) galleryHint.hidden = !count;
+    if (galleryCount) galleryCount.textContent = `${count} ${count === 1 ? "foto" : "fotos"}`;
+  }
 
   function renderPhoto(index) {
     activeIndex = (index + photos.length) % photos.length;
     const photo = photos[activeIndex];
+    const available = availableIndices();
     largeImage.src = photo.full;
     largeImage.alt = photo.alt;
     caption.textContent = photo.caption;
-    counter.textContent = `${activeIndex + 1} / ${photos.length}`;
-    previousButton.disabled = photos.length < 2;
-    nextButton.disabled = photos.length < 2;
+    counter.textContent = `${available.indexOf(activeIndex) + 1} / ${available.length}`;
+    previousButton.disabled = available.length < 2;
+    nextButton.disabled = available.length < 2;
+  }
+
+  function changePhoto(direction) {
+    const available = availableIndices();
+    if (!available.length) return;
+    const position = available.indexOf(activeIndex);
+    renderPhoto(available[(position + direction + available.length) % available.length]);
   }
 
   function openPhoto(index, button) {
@@ -88,32 +112,52 @@
     const img = document.createElement("img");
     img.src = photo.src;
     img.alt = photo.alt;
-    img.loading = "lazy";
+    img.loading = index === 0 ? "eager" : "lazy";
+    if (index === 0) img.fetchPriority = "high";
     img.decoding = "async";
     img.width = 900;
     img.height = 650;
     // Si una foto falla, conservar la galería con las demás imágenes disponibles.
     img.addEventListener("error", () => {
+      failedPhotos.add(index);
       button.hidden = true;
-      const hasVisiblePhotos = galleryButtons.some((item) => !item.hidden);
-      gallery.hidden = !hasVisiblePhotos;
-      empty.hidden = hasVisiblePhotos;
+      syncGallery();
+      if (dialog.open) {
+        if (!availableIndices().length) dialog.close();
+        else if (activeIndex === index) changePhoto(1);
+        else renderPhoto(activeIndex);
+      }
     });
-    button.append(img);
+    const photoFrame = document.createElement("span");
+    photoFrame.className = "gallery-photo";
+    const zoom = document.createElement("span");
+    zoom.className = "gallery-zoom";
+    zoom.textContent = "↗";
+    zoom.setAttribute("aria-hidden", "true");
+    photoFrame.append(img, zoom);
+    const photoCaption = document.createElement("span");
+    photoCaption.className = "gallery-caption";
+    const photoNumber = document.createElement("span");
+    photoNumber.className = "gallery-index";
+    photoNumber.textContent = String(index + 1).padStart(2, "0");
+    photoNumber.setAttribute("aria-hidden", "true");
+    const photoLabel = document.createElement("span");
+    photoLabel.textContent = photo.caption || photo.alt;
+    photoCaption.append(photoNumber, photoLabel);
+    button.append(photoFrame, photoCaption);
     button.addEventListener("click", () => openPhoto(index, button));
     galleryButtons.push(button);
     gallery.append(button);
   });
 
-  gallery.hidden = false;
-  empty.hidden = true;
+  syncGallery();
   closeButton.addEventListener("click", () => dialog.close());
-  previousButton.addEventListener("click", () => renderPhoto(activeIndex - 1));
-  nextButton.addEventListener("click", () => renderPhoto(activeIndex + 1));
+  previousButton.addEventListener("click", () => changePhoto(-1));
+  nextButton.addEventListener("click", () => changePhoto(1));
   dialog.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
       event.preventDefault();
-      renderPhoto(activeIndex + (event.key === "ArrowRight" ? 1 : -1));
+      changePhoto(event.key === "ArrowRight" ? 1 : -1);
     }
   });
   dialog.addEventListener("click", (event) => {
