@@ -50,7 +50,7 @@ p, h1, h2 { margin-top: 0; }
 .text-link > span { font-size: 21px; }
 .hero { display: grid; grid-template-columns: minmax(0, 1fr) 285px; align-items: center; gap: 80px; padding-top: 54px; padding-bottom: 50px; }
 .eyebrow { margin: 0 0 22px; font-size: 10px; font-weight: 700; line-height: 1.6; letter-spacing: 1.8px; }
-.airport-service { display: flex; align-items: center; gap: 10px; width: fit-content; max-width: 100%; margin: 0 0 22px; padding: 11px 15px; border: 1px solid #a6c7e9; border-radius: 7px; color: var(--primary); background: var(--surface); font-size: 16px; font-weight: 700; line-height: 1.4; }
+.airport-service { display: flex; align-items: center; gap: 10px; width: fit-content; max-width: 100%; margin: 0 0 24px; color: var(--primary); font-size: 16px; font-weight: 700; line-height: 1.4; filter: drop-shadow(0 2px 4px #b9dafa); }
 .airport-service > svg { width: 22px; height: 22px; flex-shrink: 0; transform: rotate(35deg); }
 .location-dot { display: inline-block; width: 7px; height: 7px; flex-shrink: 0; border-radius: 50%; background: var(--primary); }
 h1 { margin-bottom: 20px; font-size: clamp(56px, 5.8vw, 84px); font-weight: 720; letter-spacing: -4px; line-height: 1.04; }
@@ -127,7 +127,9 @@ h2 > span { color: var(--primary); }
 .city { color: var(--muted); font-size: 13px; margin-bottom: 27px; }
 .card-hours { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding-block: 22px; border-top: 1px solid var(--line); font-size: 12px; }
 .card-hours strong { font-weight: 650; white-space: nowrap; }
-.location-button { width: 100%; justify-content: space-between; font-size: 12px; padding-inline: 18px; }
+.location-button { width: 100%; justify-content: center; gap: 11px; font-size: 12px; padding-inline: 16px; }
+.maps-icon { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border-radius: 7px; color: var(--primary); background: var(--paper); }
+.maps-icon > svg { width: 21px; height: 21px; }
 .contact-section { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 100px; padding-block: 74px; }
 .contact-heading .eyebrow { margin-bottom: 20px; }
 .contact-heading h2 { font-size: clamp(35px, 3.7vw, 52px); margin-bottom: 22px; }
@@ -197,7 +199,7 @@ body.lightbox-open { overflow: hidden; }
   .main-nav, .header-cta { display: none; }
   .hero { grid-template-columns: 1fr; gap: 26px; padding-top: 35px; padding-bottom: 28px; }
   .hero-copy { text-align: center; }
-  .airport-service { gap: 9px; padding: 10px 12px; font-size: 14px; margin: 0 auto 18px; }
+  .airport-service { gap: 9px; font-size: 14px; margin: 0 auto 22px; }
   h1 { font-size: clamp(49px, 9.7vw, 72px); letter-spacing: -2.7px; margin-bottom: 19px; }
   .hero-description { font-size: 13px; margin-bottom: 21px; }
   .hero-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; max-width: 420px; margin-inline: auto; }
