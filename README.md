@@ -11,13 +11,17 @@ Abrir `index.html` en el navegador. No se necesita instalar nada. También puede
 ## Datos pendientes
 
 - **Horario provisional:** de 8 a 22 h. No se afirman días de atención. Editar `hours` en `site-config.js`; actualizar también el texto de respaldo en `index.html` si cambia, para visitantes sin JavaScript y buscadores que no lo ejecutan.
-- **WhatsApp:** pendiente de número real. Los enlaces se mantienen ocultos hasta completar `whatsappNumber` en `site-config.js`.
+- **WhatsApp:** configurado como `5493412820443` (+54 9 341 282-0443). Para cambiarlo, editar `whatsappNumber` en `site-config.js`. Si el campo queda vacío, los enlaces se ocultan.
 - **Fotos:** pendientes de imágenes reales. La galería está implementada; muestra un aviso hasta cargar fotos. Ver `assets/photos/README.md`.
 - **Servicios, tarifas y medios de pago:** no se publican hasta confirmar esa información.
 
 ## Activar WhatsApp
 
-Editar `site-config.js` y completar `whatsappNumber` con el número internacional, solo dígitos. Se activan el botón flotante y el enlace de contacto. `whatsappMessage` define el mensaje inicial. Usar y verificar el número real antes de publicar; no hay un número ficticio de ejemplo activo.
+Editar `site-config.js` y completar `whatsappNumber` con el número internacional, solo dígitos. Se activa el botón de WhatsApp en Contacto y un botón flotante solo en celular (hasta 760 px de ancho). Ambos abren el mismo chat con el mensaje inicial definido en `whatsappMessage`. En celular se reserva espacio al final de la página para el botón flotante. Usar y verificar el número real antes de publicar; no hay un número ficticio de ejemplo activo.
+
+Contacto tiene una sección propia (`#contacto`), separada de Ubicación (`#ubicacion`) y enlazada desde el menú. El ícono de WhatsApp es un SVG local de Bootstrap Icons, adaptado al azul del sitio; su licencia está en `assets/licenses/bootstrap-icons.txt`.
+
+Debajo de WhatsApp aparece un botón para llamar, con el número visible y un ícono de teléfono. El enlace `tel:` toma el mismo número de `whatsappNumber`; no es necesario mantener otro número por separado.
 
 ## Agregar fotos
 

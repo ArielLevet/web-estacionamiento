@@ -23,6 +23,14 @@
       link.hidden = false;
     });
     document.body.classList.add("has-whatsapp");
+    const phoneLabel = `+${phone.replace(/^549(341)(\d{3})(\d{4})$/, "54 9 $1 $2-$3")}`;
+    document.querySelectorAll("[data-phone]").forEach((link) => {
+      link.href = `tel:+${phone}`;
+      link.setAttribute("aria-label", `Llamar al ${phoneLabel}`);
+      const number = link.querySelector("[data-phone-number]");
+      if (number) number.textContent = phoneLabel;
+      link.hidden = false;
+    });
   }
 
   // Solo se admiten imágenes locales o URLs HTTP(S).

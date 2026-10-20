@@ -3,10 +3,10 @@ window.SITE_CONFIG = {
   // Horario provisional. Cuando se confirmen los días, incluirlos acá.
   hours: "8 a 22 h",
 
-  // Pendiente. Número internacional, solo dígitos, sin +, espacios ni guiones.
+  // Número internacional, solo dígitos, sin +, espacios ni guiones.
   // Para un celular argentino suele tener el formato 549 + área + número, sin 15.
   // Al completarlo, los dos enlaces de WhatsApp aparecen automáticamente.
-  whatsappNumber: "",
+  whatsappNumber: "5493412820443",
   whatsappMessage: "Hola, quisiera consultar por Estacionamiento Newbery.",
 
   // Agregar fotos reales en assets/photos/ y sus datos acá.
