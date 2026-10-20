@@ -191,20 +191,21 @@ body.lightbox-open { overflow: hidden; }
   .brand { gap: 9px; }
   .brand-name { flex-direction: column; align-items: flex-start; gap: 3px; }
   .brand-category { font-weight: 600; letter-spacing: .2px; }
-  .site-header .brand { width: 100%; }
+  .site-header .brand { width: 100%; justify-content: flex-start; }
   .brand-symbol { width: 36px; height: 40px; border-radius: 10px 10px 2px 10px; font-size: 30px; }
   .site-header .brand-name { font-size: 23px; }
   .main-nav, .header-cta { display: none; }
   .hero { grid-template-columns: 1fr; gap: 26px; padding-top: 35px; padding-bottom: 28px; }
-  .airport-service { gap: 9px; padding: 10px 12px; font-size: 14px; margin-bottom: 18px; }
+  .hero-copy { text-align: center; }
+  .airport-service { gap: 9px; padding: 10px 12px; font-size: 14px; margin: 0 auto 18px; }
   h1 { font-size: clamp(49px, 9.7vw, 72px); letter-spacing: -2.7px; margin-bottom: 19px; }
   .hero-description { font-size: 13px; margin-bottom: 21px; }
-  .hero-actions { gap: 14px; }
-  .hero .button { font-size: 12px; padding-inline: 16px; gap: 16px; }
-  .hero-info { display: grid; grid-template-columns: 1.15fr 1fr; gap: 15px; padding: 18px 0 0; border-left: 0; border-top: 1px solid var(--line); }
+  .hero-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; max-width: 420px; margin-inline: auto; }
+  .hero .button { min-width: 0; font-size: 12px; padding-inline: 16px; gap: 16px; }
+  .hero-info { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding: 18px 0 0; border-left: 0; border-top: 1px solid var(--line); }
   .hero-stamp { display: none; }
-  .hero-info-row { padding: 0; gap: 9px; }
-  .hero-info-row + .hero-info-row { padding-left: 17px; border-top: 0; border-left: 1px solid var(--line); }
+  .hero-info-row { flex-direction: column; align-items: center; padding: 0 12px; gap: 8px; text-align: center; }
+  .hero-info-row + .hero-info-row { padding-left: 12px; border-top: 0; border-left: 1px solid var(--line); }
   .hero-info-row .icon { width: 17px; height: 17px; }
   .hero-info-row small { font-size: 8px; letter-spacing: .8px; margin-bottom: 7px; }
   .hero-info-row a, .hero-info-row strong { font-size: 16px; }
@@ -277,8 +278,6 @@ body.lightbox-open { overflow: hidden; }
   h1 { font-size: 46px; letter-spacing: -2.6px; }
   .hero-actions { gap: 12px; }
   .hero .button { font-size: 11px; gap: 12px; padding-inline: 12px; }
-  .hero-info-row { gap: 7px; }
-  .hero-info-row + .hero-info-row { padding-left: 10px; }
   .hero-info-row a, .hero-info-row strong { font-size: 14px; }
   .hero-info-row small { font-size: 7px; }
   .gallery-footnote { flex-direction: column; }
