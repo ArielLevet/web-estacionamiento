@@ -69,6 +69,18 @@
   const failedPhotos = new Set();
   let activeIndex = 0;
   let opener = null;
+  let swipeStart = null;
+  largeImage.draggable = false;
+  const viewport = window.visualViewport;
+  const isZoomed = () => viewport?.scale > 1;
+
+  function syncZoom() {
+    const zoomed = Boolean(isZoomed());
+    dialog.classList.toggle("is-zoomed", zoomed);
+    if (zoomed) swipeStart = null;
+  }
+
+  viewport?.addEventListener("resize", syncZoom);
 
   const availableIndices = () => photos.map((_, index) => index).filter((index) => !failedPhotos.has(index));
 
@@ -104,6 +116,7 @@
   function openPhoto(index, button) {
     opener = button;
     renderPhoto(index);
+    syncZoom();
     dialog.showModal();
     document.body.classList.add("lightbox-open");
     closeButton.focus();
@@ -111,6 +124,7 @@
 
   function restorePage() {
     if (dialog.open) return;
+    swipeStart = null;
     document.body.classList.remove("lightbox-open");
     largeImage.removeAttribute("src");
     if (opener && !opener.hidden) opener.focus();
@@ -163,6 +177,25 @@
   closeButton.addEventListener("click", closePhoto);
   previousButton.addEventListener("click", () => changePhoto(-1));
   nextButton.addEventListener("click", () => changePhoto(1));
+  // Solo gestos táctiles horizontales: ignorar toques, arrastres verticales y zoom.
+  dialog.addEventListener("pointerdown", (event) => {
+    if (event.pointerType !== "touch") return;
+    swipeStart = event.isPrimary && event.target === largeImage && !isZoomed()
+      ? { id: event.pointerId, x: event.clientX, y: event.clientY }
+      : null;
+  });
+  dialog.addEventListener("pointerup", (event) => {
+    if (!swipeStart || event.pointerId !== swipeStart.id) return;
+    const start = swipeStart;
+    swipeStart = null;
+    if (!dialog.open || isZoomed()) return;
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
+    if (Math.abs(dx) >= 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      changePhoto(dx < 0 ? 1 : -1);
+    }
+  });
+  dialog.addEventListener("pointercancel", () => { swipeStart = null; });
   dialog.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
       event.preventDefault();

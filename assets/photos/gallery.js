@@ -5,10 +5,6 @@ window.SITE_PHOTOS = [
     "full": "./assets/photos/01.jpg"
   },
   {
-    "src": "./assets/photos/01_thumb.webp",
-    "full": "./assets/photos/01.webp"
-  },
-  {
     "src": "./assets/photos/20261022_064338_thumb.webp",
     "full": "./assets/photos/20261022_064338.jpg"
   },
