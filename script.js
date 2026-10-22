@@ -9,9 +9,6 @@
     document.querySelectorAll("[data-hours]").forEach((element) => {
       element.textContent = config.hours.trim();
     });
-    const description = `Estacionamiento Newbery con traslado al aeropuerto. Dejá el auto. Seguí con tu día. Newbery 9050, Rosario. Horario de atención: ${config.hours.trim()}.`;
-    document.querySelector('meta[name="description"]').content = description;
-    document.querySelector('meta[property="og:description"]').content = description;
   }
 
   const phone = String(config.whatsappNumber || "").trim();

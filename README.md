@@ -60,11 +60,26 @@ Si se usa el plan gratuito de GitHub, el repositorio debe ser público para usar
 2. Configurar los registros DNS en el proveedor siguiendo la guía oficial para el dominio raíz y/o `www`. Para `www`, el CNAME apunta a `USUARIO.github.io`, sin el nombre del repositorio.
 3. Al guardar el dominio, GitHub agrega un archivo `CNAME` a la raíz de la rama. Conservar ese archivo en los cambios siguientes.
 4. Cuando se emita el certificado, activar **Enforce HTTPS**.
-5. Agregar la URL definitiva como etiqueta `canonical`, `og:url` y, si se desea, la imagen social absoluta en `index.html`.
+5. Agregar la URL definitiva como etiqueta `canonical`, `og:url`, propiedad `url` del JSON-LD y como base de la URL absoluta de `og:image` en `index.html`.
 
 El dominio se configura en GitHub y en DNS; no requiere cambiar los enlaces internos del sitio. No se incluye un archivo `CNAME` con un dominio ficticio.
 
 [Guía oficial de dominio propio](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site) · [HTTPS](https://docs.github.com/en/pages/getting-started-with-github-pages/securing-your-github-pages-site-with-https).
+
+## Buscadores y vista previa al compartir
+
+El título, `meta description` y las etiquetas Open Graph se mantienen directamente en el `<head>` de `index.html`. JavaScript actualiza los horarios visibles, pero no reemplaza las descripciones. Estas describen ubicación y servicios sin incluir horarios provisionales.
+
+El bloque JSON-LD `LocalBusiness` declara el nombre, la descripción y la dirección del negocio con datos que también aparecen en la página. Si cambia la dirección o los servicios, revisar ese bloque junto con los textos visibles. El teléfono se sigue editando únicamente en `site-config.js`; todavía no se duplica en el JSON-LD. No se declaran días de apertura, coordenadas ni tarifas sin confirmar.
+
+Al definir la URL pública y publicar:
+
+1. Completar `canonical`, `og:url`, `og:image` (URL absoluta de una imagen representativa) y la propiedad `url` del JSON-LD.
+2. Verificar el sitio en Google Search Console e inspeccionar la URL publicada para solicitar su indexación y comprobar que Google pueda acceder a ella.
+3. Validar los datos estructurados con la [prueba de resultados enriquecidos de Google](https://search.google.com/test/rich-results).
+4. Crear o completar el Perfil de Empresa de Google con el mismo nombre, dirección y teléfono, horarios confirmados, categoría adecuada, fotos y enlace al sitio. Verificar su titularidad desde la cuenta del negocio y mantener los datos actualizados.
+
+Los metadatos y el JSON-LD no garantizan una posición ni un aspecto específico del resultado. Google puede elegir otro fragmento de la página según la búsqueda. Referencias: [descripciones](https://developers.google.com/search/docs/appearance/snippet?hl=es), [datos de negocios locales](https://developers.google.com/search/docs/appearance/structured-data/local-business?hl=es) y [visibilidad local](https://support.google.com/business/answer/7091?hl=es).
 
 ## Diseño y accesibilidad
 
