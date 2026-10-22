@@ -65,11 +65,18 @@
   const closeButton = document.getElementById("lightbox-close");
   const previousButton = document.getElementById("lightbox-prev");
   const nextButton = document.getElementById("lightbox-next");
+  const loading = document.getElementById("lightbox-loading");
+  const stage = largeImage.parentElement;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const galleryButtons = [];
   const failedPhotos = new Set();
   let activeIndex = 0;
   let opener = null;
   let swipeStart = null;
+  let photoRequest = 0;
+  let loadingTimer;
+  let pendingImage = null;
+  let fade = null;
   largeImage.draggable = false;
   const viewport = window.visualViewport;
   const isZoomed = () => viewport?.scale > 1;
@@ -95,26 +102,68 @@
     if (galleryCount) galleryCount.textContent = `${count} ${count === 1 ? "foto" : "fotos"}`;
   }
 
-  function renderPhoto(index) {
+  function stopLoading() {
+    clearTimeout(loadingTimer);
+    loading.hidden = true;
+    stage.removeAttribute("aria-busy");
+    if (pendingImage) {
+      pendingImage.onload = pendingImage.onerror = null;
+      pendingImage.removeAttribute("src");
+      pendingImage = null;
+    }
+  }
+
+  function renderPhoto(index, animate = false) {
+    const request = ++photoRequest;
+    stopLoading();
     activeIndex = (index + photos.length) % photos.length;
     const photo = photos[activeIndex];
     const available = availableIndices();
-    largeImage.src = photo.full;
-    largeImage.alt = `Foto ${activeIndex + 1} del estacionamiento`;
     counter.textContent = `${available.indexOf(activeIndex) + 1} / ${available.length}`;
     previousButton.disabled = available.length < 2;
     nextButton.disabled = available.length < 2;
+    stage.setAttribute("aria-busy", "true");
+    loadingTimer = setTimeout(() => { loading.hidden = false; }, 150);
+    const nextImage = new Image();
+    pendingImage = nextImage;
+    nextImage.onload = () => {
+      if (request !== photoRequest || !dialog.open) return;
+      largeImage.src = nextImage.src;
+      largeImage.alt = `Foto ${activeIndex + 1} del estacionamiento`;
+      stopLoading();
+      fade?.cancel();
+      if (animate && !reducedMotion.matches) {
+        fade = largeImage.animate([{ opacity: .65 }, { opacity: 1 }], { duration: 200, easing: "ease-out" });
+      }
+    };
+    nextImage.onerror = () => {
+      if (request !== photoRequest || !dialog.open) return;
+      // Si falla la ampliada, mostrar la miniatura en lugar de dejar el visor cargando.
+      if (nextImage.src !== photo.src) {
+        nextImage.src = photo.src;
+        return;
+      }
+      failedPhotos.add(activeIndex);
+      galleryButtons[activeIndex].hidden = true;
+      syncGallery();
+      if (availableIndices().length) changePhoto(1);
+      else closePhoto();
+    };
+    nextImage.src = photo.full;
   }
 
   function changePhoto(direction) {
     const available = availableIndices();
     if (!available.length) return;
     const position = available.indexOf(activeIndex);
-    renderPhoto(available[(position + direction + available.length) % available.length]);
+    const nextIndex = available[(position + direction + available.length) % available.length];
+    if (nextIndex !== activeIndex) renderPhoto(nextIndex, true);
   }
 
   function openPhoto(index, button) {
     opener = button;
+    largeImage.src = photos[index].src;
+    largeImage.alt = `Foto ${index + 1} del estacionamiento`;
     renderPhoto(index);
     syncZoom();
     dialog.showModal();
@@ -124,9 +173,13 @@
 
   function restorePage() {
     if (dialog.open) return;
+    ++photoRequest;
+    stopLoading();
+    fade?.cancel();
     swipeStart = null;
     document.body.classList.remove("lightbox-open");
     largeImage.removeAttribute("src");
+    largeImage.alt = "";
     if (opener && !opener.hidden) opener.focus();
   }
 
