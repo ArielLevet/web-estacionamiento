@@ -25,20 +25,17 @@ Debajo de WhatsApp aparece un botón para llamar, con el número visible y un í
 
 ## Agregar fotos
 
-Guardar los archivos en `assets/photos/` y completar el arreglo `photos`:
+Guardar los originales JPG, JPEG, PNG o WebP en `assets/photos/`, con nombres como `01.jpg`, `02.jpg`, `03.jpg`, o nombres alfabéticos. Después ejecutar desde la raíz del repo:
 
-```js
-photos: [
-  {
-    src: "./assets/photos/entrada.webp",
-    full: "./assets/photos/entrada-grande.webp",
-    alt: "Entrada del Estacionamiento Newbery",
-    caption: "La entrada",
-  },
-],
+Para generar miniaturas automáticamente con Python y Pillow, ver las [instrucciones de procesamiento por lote](assets/photos/README.md#generar-miniaturas-por-lote).
+
+```powershell
+.\.venv\Scripts\python.exe scripts/generate-thumbnails.py
 ```
 
-Los archivos del ejemplo deben existir. `full` y `caption` son opcionales. La galería carga las miniaturas de forma diferida y la imagen grande al abrirla. El visor tiene navegación por flechas, cierre con Escape y retorno del foco al botón original.
+El script genera las miniaturas faltantes y actualiza `assets/photos/gallery.js` con la lista ordenada por nombre, con orden numérico natural: `2` va antes de `10`. No hace falta editar `site-config.js` ni escribir títulos o descripciones. Repetir el comando al agregar, quitar o renombrar fotos. Incluir en el commit los originales, las miniaturas y `gallery.js`; GitHub Pages necesita esa lista generada.
+
+La galería muestra solo imágenes, sin textos debajo. Carga las miniaturas de forma diferida y la imagen grande al abrirla. El visor tiene navegación por flechas, cierre con Escape y retorno del foco al botón original.
 
 La primera foto es la destacada y se carga con prioridad. Con tres o más fotos, la galería muestra una imagen principal grande y dos secundarias al costado; las siguientes continúan en la grilla. Con una o dos fotos, el diseño se adapta para aprovechar todo el ancho. En celular las fotos se reorganizan y se amplían al tocarlas. Las imágenes que no cargan se omiten del recorrido.
 

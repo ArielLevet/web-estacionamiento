@@ -9,7 +9,7 @@
     document.querySelectorAll("[data-hours]").forEach((element) => {
       element.textContent = config.hours.trim();
     });
-    const description = `Estacionamiento Newbery con traslado al aeropuerto. Dejá el auto. Seguí tu viaje. Newbery 9050, Rosario. Horario de atención: ${config.hours.trim()}.`;
+    const description = `Estacionamiento Newbery con traslado al aeropuerto. Dejá el auto. Seguí con tu día. Newbery 9050, Rosario. Horario de atención: ${config.hours.trim()}.`;
     document.querySelector('meta[name="description"]').content = description;
     document.querySelector('meta[property="og:description"]').content = description;
   }
@@ -44,13 +44,13 @@
     }
   };
 
-  const photos = (Array.isArray(config.photos) ? config.photos : [])
-    .filter((photo) => photo && typeof photo.alt === "string" && photo.alt.trim() && imageUrl(photo.src))
+  const photos = (Array.isArray(window.SITE_PHOTOS) ? window.SITE_PHOTOS : [])
+    .filter((photo) => photo && imageUrl(photo.src))
+    .slice()
+    .sort((a, b) => (a.full || a.src).localeCompare(b.full || b.src, "es", { numeric: true, sensitivity: "base" }))
     .map((photo) => ({
       src: imageUrl(photo.src),
       full: imageUrl(photo.full) || imageUrl(photo.src),
-      alt: photo.alt,
-      caption: typeof photo.caption === "string" ? photo.caption : photo.alt,
     }));
 
   const gallery = document.getElementById("gallery");
@@ -61,7 +61,6 @@
   if (!photos.length || !gallery || !dialog) return;
 
   const largeImage = document.getElementById("lightbox-image");
-  const caption = document.getElementById("lightbox-caption");
   const counter = document.getElementById("lightbox-counter");
   const closeButton = document.getElementById("lightbox-close");
   const previousButton = document.getElementById("lightbox-prev");
@@ -89,8 +88,7 @@
     const photo = photos[activeIndex];
     const available = availableIndices();
     largeImage.src = photo.full;
-    largeImage.alt = photo.alt;
-    caption.textContent = photo.caption;
+    largeImage.alt = `Foto ${activeIndex + 1} del estacionamiento`;
     counter.textContent = `${available.indexOf(activeIndex) + 1} / ${available.length}`;
     previousButton.disabled = available.length < 2;
     nextButton.disabled = available.length < 2;
@@ -127,11 +125,11 @@
     const button = document.createElement("button");
     button.type = "button";
     button.className = "gallery-item";
-    button.setAttribute("aria-label", `Ampliar foto: ${photo.alt}`);
+    button.setAttribute("aria-label", `Ampliar foto ${index + 1}`);
     button.setAttribute("aria-haspopup", "dialog");
     const img = document.createElement("img");
     img.src = photo.src;
-    img.alt = photo.alt;
+    img.alt = "";
     img.loading = index === 0 ? "eager" : "lazy";
     if (index === 0) img.fetchPriority = "high";
     img.decoding = "async";
@@ -155,16 +153,7 @@
     zoom.textContent = "↗";
     zoom.setAttribute("aria-hidden", "true");
     photoFrame.append(img, zoom);
-    const photoCaption = document.createElement("span");
-    photoCaption.className = "gallery-caption";
-    const photoNumber = document.createElement("span");
-    photoNumber.className = "gallery-index";
-    photoNumber.textContent = String(index + 1).padStart(2, "0");
-    photoNumber.setAttribute("aria-hidden", "true");
-    const photoLabel = document.createElement("span");
-    photoLabel.textContent = photo.caption || photo.alt;
-    photoCaption.append(photoNumber, photoLabel);
-    button.append(photoFrame, photoCaption);
+    button.append(photoFrame);
     button.addEventListener("click", () => openPhoto(index, button));
     galleryButtons.push(button);
     gallery.append(button);
