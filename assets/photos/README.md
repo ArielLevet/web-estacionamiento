@@ -1,11 +1,8 @@
-# Fotos reales del estacionamiento
+# Fotos preparadas para la web
 
-Colocá acá las fotos del lugar. Los gráficos provisionales de la galería no representan el estacionamiento.
+Esta carpeta contiene solo las ampliadas WebP, sus miniaturas y la lista `gallery.js`. Los originales se guardan en `originals/`, en la raíz del repo.
 
-- Para la imagen ampliada, preferir WebP o JPEG optimizado, de 1600 a 2000 píxeles de ancho.
-- Intentar que cada miniatura pese menos de 250 KB. La versión ampliada puede tener más resolución.
-- Usar nombres en minúsculas, sin espacios ni acentos (por ejemplo, `entrada.webp`).
-- Nombrar las fotos como `01.jpg`, `02.jpg`, `03.jpg` o usar nombres alfabéticos. Se ordenan por nombre con orden numérico natural: `2` va antes de `10`.
+- Guardar los originales JPG, JPEG, PNG o WebP en `originals/`. Nombrarlos como `01.jpg`, `02.jpg`, `03.jpg` o usar nombres alfabéticos. Se ordenan por nombre con orden numérico natural: `2` va antes de `10`.
 - No hace falta editar `site-config.js` ni escribir títulos o descripciones.
 
 Al cargar al menos una foto válida, desaparece el aviso de próximas fotos y aparece la galería. Se puede ampliar con clic, recorrer con las flechas o cerrar con Escape.
@@ -19,18 +16,21 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r scripts/requirements.txt
 ```
 
-Cada vez que agregues, quites o renombres fotos JPG, JPEG, PNG o WebP en esta carpeta, ejecutar:
+Cada vez que agregues, quites o renombres fotos en `originals/`, ejecutar:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/generate-thumbnails.py
 ```
 
-El script genera `nombre_thumb.webp` con un ancho máximo de 1000 px y calidad 80. Conserva las proporciones, corrige la orientación de las fotos y no agranda imágenes pequeñas. No modifica los originales ni recorre subcarpetas.
+Para cada original `nombre.jpg`, el script genera acá:
 
-Si ya existe `nombre_thumb` en cualquiera de los formatos admitidos, lo saltea, incluidas las miniaturas PNG de prueba actuales. Los archivos terminados en `_thumb` no se procesan como originales. Evitar originales con el mismo nombre base y distinta extensión: compartirían una miniatura.
+- `nombre.webp`: ampliada de hasta **1920 px en el lado más largo**, calidad **80**.
+- `nombre_thumb.webp`: miniatura de hasta **1000 px de ancho**, calidad **80**.
 
-Para regenerar una miniatura, borrarla y volver a ejecutar el script. Si hay un archivo dañado, se informa el error y se continúa con los demás.
+Ambas se crean desde el original, conservan proporciones, corrigen la orientación y no agrandan fotos pequeñas. Los originales no se modifican ni se recorren subcarpetas. El peso depende del detalle de la foto: se busca aproximadamente 200–350 KB por ampliada; si supera 500 KB se informa para revisión, sin bajar automáticamente la calidad.
 
-El script también actualiza `gallery.js` con la lista ordenada de originales y miniaturas. No editar ese archivo a mano. Una miniatura sin su original no aparece en la galería. GitHub Pages no lista carpetas automáticamente: hay que ejecutar el script para actualizar la lista.
+Si una versión ya existe, se saltea. Para regenerarla, borrarla y ejecutar nuevamente. Si modificás un original manteniendo su nombre, borrar sus dos versiones para actualizarlas. Los nombres base repetidos (por ejemplo `01.jpg` y `01.png`) se rechazan antes de procesar nada. El sufijo `_thumb` está reservado para miniaturas.
 
-Python y Pillow solo se necesitan en tu PC para preparar las fotos; la web sigue siendo estática. Incluir en el commit los originales, las miniaturas y `gallery.js`.
+El script también actualiza `gallery.js` con la lista ordenada de las versiones web. No editar ese archivo a mano. Si se borra o renombra un original, sus versiones anteriores dejan de aparecer en la lista pero se conservan en disco; se pueden borrar manualmente. Si un original falla, se informa el error y se continúa con los demás.
+
+Python y Pillow solo se necesitan en tu PC para preparar las fotos; la web sigue siendo estática. GitHub Pages no lista carpetas automáticamente: ejecutar el script y subir las ampliadas, las miniaturas y `gallery.js`. Los originales están excluidos de Git: mantener un respaldo propio.

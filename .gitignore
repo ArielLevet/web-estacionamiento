@@ -8,3 +8,5 @@ node_modules/
 *.log
 .venv/
 __pycache__/
+/originals/*
+!/originals/README.md

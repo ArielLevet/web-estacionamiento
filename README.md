@@ -12,7 +12,7 @@ Abrir `index.html` en el navegador. No se necesita instalar nada. También puede
 
 - **Horario provisional:** de 8 a 22 h. No se afirman días de atención. Editar `hours` en `site-config.js`; actualizar también el texto de respaldo en `index.html` si cambia, para visitantes sin JavaScript y buscadores que no lo ejecutan.
 - **WhatsApp:** configurado como `5493412820443` (+54 9 341 282-0443). Para cambiarlo, editar `whatsappNumber` en `site-config.js`. Si el campo queda vacío, los enlaces se ocultan.
-- **Fotos:** pendientes de imágenes reales. La galería está implementada; muestra un aviso hasta cargar fotos. Ver `assets/photos/README.md`.
+- **Fotos:** originales en `originals/`; versiones WebP y miniaturas en `assets/photos/`. Ver `assets/photos/README.md` para agregar o actualizar imágenes.
 - **Servicios, tarifas y medios de pago:** no se publican hasta confirmar esa información.
 
 ## Activar WhatsApp
@@ -25,15 +25,17 @@ Debajo de WhatsApp aparece un botón para llamar, con el número visible y un í
 
 ## Agregar fotos
 
-Guardar los originales JPG, JPEG, PNG o WebP en `assets/photos/`, con nombres como `01.jpg`, `02.jpg`, `03.jpg`, o nombres alfabéticos. Después ejecutar desde la raíz del repo:
+Guardar los originales JPG, JPEG, PNG o WebP en `originals/`, con nombres como `01.jpg`, `02.jpg`, `03.jpg`, o nombres alfabéticos. Después ejecutar desde la raíz del repo:
 
-Para generar miniaturas automáticamente con Python y Pillow, ver las [instrucciones de procesamiento por lote](assets/photos/README.md#generar-miniaturas-por-lote).
+Para instalar Python y Pillow, ver las [instrucciones de procesamiento por lote](assets/photos/README.md#generar-miniaturas-por-lote).
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/generate-thumbnails.py
 ```
 
-El script genera las miniaturas faltantes y actualiza `assets/photos/gallery.js` con la lista ordenada por nombre, con orden numérico natural: `2` va antes de `10`. No hace falta editar `site-config.js` ni escribir títulos o descripciones. Repetir el comando al agregar, quitar o renombrar fotos. Incluir en el commit los originales, las miniaturas y `gallery.js`; GitHub Pages necesita esa lista generada.
+El script genera en `assets/photos/` las versiones faltantes: ampliadas WebP de hasta 1920 px en el lado más largo y miniaturas de hasta 1000 px de ancho, ambas con calidad 80. Conserva los originales, corrige su orientación y no agranda imágenes pequeñas. Las versiones existentes se saltean; para regenerarlas, borrarlas y ejecutar nuevamente.
+
+También actualiza `assets/photos/gallery.js` con la lista ordenada por nombre, con orden numérico natural: `2` va antes de `10`. No hace falta editar `site-config.js` ni escribir títulos o descripciones. Repetir el comando al agregar, quitar o renombrar originales. Incluir en el commit las ampliadas, las miniaturas y `gallery.js`; los originales están excluidos de Git y requieren un respaldo propio. GitHub Pages necesita esa lista generada.
 
 La galería muestra solo imágenes, sin textos debajo. Carga las miniaturas de forma diferida y la imagen grande al abrirla. El visor tiene navegación por flechas, cierre con Escape y retorno del foco al botón original.
 
