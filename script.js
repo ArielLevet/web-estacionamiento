@@ -2,6 +2,14 @@
   "use strict";
 
   const config = window.SITE_CONFIG || {};
+  // La portada es la vista inicial: no cargar fotos, mapa ni contacto mientras esté activa.
+  if (config.underConstruction !== false) return;
+  const siteContent = document.getElementById("site-content");
+  if (siteContent) {
+    document.getElementById("coming-soon")?.remove();
+    siteContent.replaceWith(siteContent.content.cloneNode(true));
+  }
+
   const year = document.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
 

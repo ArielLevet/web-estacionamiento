@@ -10,12 +10,26 @@ Abrir `index.html` en el navegador. No se necesita instalar nada. También puede
 
 ## Datos pendientes
 
+La portada de próxima apertura está activa; ver cómo cambiarla en la sección siguiente.
+
 - **Horario provisional:** de 8 a 22 h. No se afirman días de atención. Editar `hours` en `site-config.js`; actualizar también el texto de respaldo en `index.html` si cambia, para visitantes sin JavaScript y buscadores que no lo ejecutan.
-- **WhatsApp:** configurado como `5493412820443` (+54 9 341 282-0443). Para cambiarlo, editar `whatsappNumber` en `site-config.js`. Si el campo queda vacío, los enlaces se ocultan.
+- **WhatsApp:** pendiente de comprar el número definitivo. `whatsappNumber` está vacío en `site-config.js`; los enlaces de WhatsApp y llamada permanecen ocultos hasta completarlo.
 - **Fotos:** originales en `originals/`; versiones WebP y miniaturas en `assets/photos/`. Ver `assets/photos/README.md` para agregar o actualizar imágenes.
 - **Servicios, tarifas y medios de pago:** no se publican hasta confirmar esa información.
 
+## Portada de próxima apertura
+
+La portada está activada con `underConstruction: true` en `site-config.js`. Muestra únicamente el isotipo, el nombre, «Estamos preparando tu lugar», la mención al traslado y la dirección. No tiene botones, horarios, mapa, galería ni contacto.
+
+Para habilitar el sitio completo, cambiar a `underConstruction: false`, guardar y publicar desde GitHub Desktop. Para revisarlo localmente antes del lanzamiento, cambiar ese valor sin publicar el cambio hasta estar listo. Confirmar y completar el número definitivo antes de habilitar el contacto.
+
+La portada es el HTML inicial y el sitio completo permanece dentro de un `<template>` inactivo. Con `false`, JavaScript inserta el sitio y activa sus funciones; con `true`, no carga fotos ni mapa. Si JavaScript está deshabilitado o falla la configuración, se conserva la portada.
+
+Los metadatos son descriptivos y válidos para ambas etapas: nombre, ubicación y traslado, sin horarios ni invitaciones a consultar un número pendiente. No se usa `noindex`; la portada se puede indexar. Esta opción controla la presentación, no el acceso privado a los archivos del repositorio.
+
 ## Activar WhatsApp
+
+Los botones de contacto solo se muestran con el sitio completo habilitado (`underConstruction: false`) y un número válido.
 
 Editar `site-config.js` y completar `whatsappNumber` con el número internacional, solo dígitos. Se activa el botón de WhatsApp en Contacto y un botón flotante solo en celular (hasta 760 px de ancho). Ambos abren el mismo chat con el mensaje inicial definido en `whatsappMessage`. En celular se reserva espacio al final de la página para el botón flotante. Usar y verificar el número real antes de publicar; no hay un número ficticio de ejemplo activo.
 

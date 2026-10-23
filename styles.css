@@ -32,6 +32,15 @@ svg { display: block; }
 a:focus-visible, button:focus-visible { outline: 3px solid var(--primary); outline-offset: 5px; }
 p, h1, h2 { margin-top: 0; }
 .wrapper { width: min(1280px, calc(100% - 96px)); margin-inline: auto; }
+.coming-soon { display: grid; place-items: center; min-height: 100svh; padding: 40px 22px; text-align: center; }
+.coming-soon-content { width: 100%; max-width: 620px; }
+.coming-soon-logo { width: 120px; height: 120px; margin: 0 auto 16px; object-fit: contain; }
+.coming-soon-name { margin: 0 0 46px; color: var(--ink); font-size: clamp(22px, 4.5vw, 30px); font-weight: 750; letter-spacing: -.7px; line-height: 1.25; }
+.coming-soon-name > span { color: var(--primary); font-weight: 500; }
+.coming-soon-title { margin: 0 0 20px; color: var(--ink); font-size: clamp(34px, 6vw, 52px); font-weight: 680; letter-spacing: -1.8px; line-height: 1.12; }
+.coming-soon-description { max-width: 390px; margin: 0 auto 38px; color: var(--muted); font-size: 16px; line-height: 1.7; }
+.coming-soon-address { margin: 0; color: var(--ink); font-size: 14px; line-height: 1.7; }
+.coming-soon-address > span { margin-inline: 5px; }
 .skip-link { position: fixed; top: 12px; left: 12px; z-index: 10; padding: 14px 20px; background: var(--accent); color: var(--ink); transform: translateY(-160%); }
 .skip-link:focus { transform: translateY(0); }
 .site-header { display: flex; align-items: center; gap: 40px; min-height: 96px; border-bottom: 1px solid var(--line); }
@@ -165,6 +174,13 @@ body.lightbox-open { overflow: hidden; }
   .lightbox-loading::after { width: 35px; height: 35px; border-width: 4px; }
 }
 @media (min-width: 1500px) { .hero { padding-block: 64px; } }
+@media (max-height: 500px) {
+  .coming-soon { padding-block: 24px; }
+  .coming-soon-logo { width: 72px; height: 72px; margin-bottom: 8px; }
+  .coming-soon-name { margin-bottom: 22px; }
+  .coming-soon-title { font-size: 34px; margin-bottom: 12px; }
+  .coming-soon-description { margin-bottom: 18px; }
+}
 @media (max-width: 1050px) {
   .wrapper { width: calc(100% - 64px); }
   .site-header { gap: 18px; }
