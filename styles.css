@@ -39,6 +39,7 @@ p, h1, h2 { margin-top: 0; }
 .coming-soon-name > span { color: var(--primary); font-weight: 500; }
 .coming-soon-title { margin: 0 0 20px; color: var(--ink); font-size: clamp(34px, 6vw, 52px); font-weight: 680; letter-spacing: -1.8px; line-height: 1.12; }
 .coming-soon-description { max-width: 390px; margin: 0 auto 38px; color: var(--muted); font-size: 16px; line-height: 1.7; }
+.coming-soon-contact { max-width: 340px; margin: 0 auto 38px; }
 .coming-soon-address { margin: 0; color: var(--ink); font-size: 14px; line-height: 1.7; }
 .coming-soon-address > span { margin-inline: 5px; }
 .skip-link { position: fixed; top: 12px; left: 12px; z-index: 10; padding: 14px 20px; background: var(--accent); color: var(--ink); transform: translateY(-160%); }
@@ -78,6 +79,10 @@ h1 > span { color: var(--primary); }
 .hero-info-row a, .hero-info-row strong { display: block; font-size: 19px; font-weight: 650; letter-spacing: -.5px; }
 .hero-info-row a > span { padding-left: 8px; }
 .hero-info-row div > span { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; }
+/* Fila de consultas: solo si hay número de WhatsApp, y solo en escritorio (en celular está el botón flotante). */
+.hero-info-contact { display: none; }
+body.has-whatsapp .hero-info-contact { display: flex; }
+.icon-whatsapp { display: block; background: currentColor; -webkit-mask: url("./assets/whatsapp.svg") center / contain no-repeat; mask: url("./assets/whatsapp.svg") center / contain no-repeat; }
 .place-section { padding-bottom: 74px; }
 .section-intro { display: flex; justify-content: space-between; align-items: flex-end; gap: 35px; margin-bottom: 25px; padding-top: 28px; border-top: 1px solid var(--line); }
 .section-intro .eyebrow { margin-bottom: 9px; }
@@ -214,6 +219,7 @@ body.lightbox-open { overflow: hidden; }
   .hero-info { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding: 18px 0 0; border-left: 0; border-top: 1px solid var(--line); }
   .hero-info-row { flex-direction: column; align-items: center; padding: 0 12px; gap: 8px; text-align: center; }
   .hero-info-row + .hero-info-row { padding-left: 12px; border-top: 0; border-left: 1px solid var(--line); }
+  body.has-whatsapp .hero-info-contact { display: none; }
   .hero-info-row .icon { width: 17px; height: 17px; }
   .hero-info-row small { font-size: 8px; letter-spacing: .8px; margin-bottom: 7px; }
   .hero-info-row a, .hero-info-row strong { font-size: 16px; }

@@ -2,10 +2,11 @@
   "use strict";
 
   const config = window.SITE_CONFIG || {};
-  // La portada es la vista inicial: no cargar fotos, mapa ni contacto mientras esté activa.
-  if (config.underConstruction !== false) return;
+  // La portada es la vista inicial: mientras esté activa, solo se configura el contacto.
+  // El sitio completo (fotos, mapa) queda en el <template> sin cargarse.
+  const underConstruction = config.underConstruction !== false;
   const siteContent = document.getElementById("site-content");
-  if (siteContent) {
+  if (!underConstruction && siteContent) {
     document.getElementById("coming-soon")?.remove();
     siteContent.replaceWith(siteContent.content.cloneNode(true));
   }
@@ -36,7 +37,12 @@
       if (number) number.textContent = phoneLabel;
       link.hidden = false;
     });
+    document.querySelectorAll("[data-contact]").forEach((element) => {
+      element.hidden = false;
+    });
   }
+
+  if (underConstruction) return;
 
   // Solo se admiten imágenes locales o URLs HTTP(S).
   const imageUrl = (value) => {

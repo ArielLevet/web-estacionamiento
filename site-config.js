@@ -10,7 +10,7 @@ window.SITE_CONFIG = {
   // Número internacional, solo dígitos, sin +, espacios ni guiones.
   // Para un celular argentino suele tener el formato 549 + área + número, sin 15.
   // Pendiente de comprar el número definitivo. Vacío: no mostrar contacto telefónico.
-  whatsappNumber: "",
+  whatsappNumber: "5493413411323",
   whatsappMessage: "Hola, quisiera consultar por Estacionamiento Newbery.",
 
   // Fotos: scripts/generate-thumbnails.py genera assets/photos/gallery.js.
