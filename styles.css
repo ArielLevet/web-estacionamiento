@@ -71,7 +71,7 @@ p, h1, h2 { margin-top: 0; }
 .button-accent:hover { background: var(--accent-hover); }
 .button-dark { background: var(--primary); color: var(--paper); }
 .button-dark:hover { background: var(--primary-hover); }
-.hero { display: grid; grid-template-columns: minmax(0, 1fr) 285px; align-items: center; gap: 80px; padding-top: 54px; padding-bottom: 50px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) 330px; align-items: center; gap: 70px; padding-top: 54px; padding-bottom: 50px; }
 .eyebrow { margin: 0 0 22px; font-size: 10px; font-weight: 700; line-height: 1.6; letter-spacing: 1.8px; }
 .airport-service { display: flex; align-items: center; gap: 10px; width: fit-content; max-width: 100%; margin: 0 0 24px; color: var(--primary); font-size: 16px; font-weight: 700; line-height: 1.4; filter: drop-shadow(0 2px 4px var(--accent)); }
 .airport-service > svg { width: 24px; height: 24px; flex-shrink: 0; transform: rotate(35deg); }
